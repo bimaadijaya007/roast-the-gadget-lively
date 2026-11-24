@@ -16,6 +16,14 @@ function validate(line) {
   if (line.includes("\n") || line.includes("\r")) {
     throw new Error("line must be a single line");
   }
+  if (line !== line.trim()) {
+    throw new Error("line must not have leading or trailing whitespace");
+  }
+  for (const ch of line) {
+    if (ch.charCodeAt(0) < 0x20) {
+      throw new Error("line must not contain control characters");
+    }
+  }
 }
 
 function main() {
